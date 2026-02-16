@@ -16,18 +16,15 @@ from telegram.ext import (
     CallbackQueryHandler, ContextTypes, filters
 )
 
-# ========== CONFIGURACIÓN ==========
 TOKEN = "8470535043:AAEafK7ExK2vxMX7w_NbcMQeVuZppzLmUbI"
 DB_PATH = "ex_amigos_repo.db"
 
-# Miembros del grupo
 MIEMBROS = {
     'Germán': '📚',
     'Leo': '🎬',
     'Mario': '🎵'
 }
 
-# ========== BASE DE DATOS ==========
 def init_db():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -147,7 +144,6 @@ def search_content(chat_id, query_type=None, query_value=None, limit=15):
     conn.close()
     return results
 
-# ========== COMANDOS ==========
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = """🤖 *Bot Clasificador - Ex-amigos*
 
@@ -160,7 +156,7 @@ Organizo todo lo que Germán 📚, Leo 🎬 y Mario 🎵 comparten.
 - Organizo por #etiquetas
 
 🏷️ *Usar etiquetas:*
-_"Mirá esto #cine #tecnologìa"_
+_"Mirá esto #cine #documental"_
 
 📋 *Comandos:*
 /stats - Estadísticas del archivo
@@ -300,7 +296,6 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         
         await query.edit_message_text(text, parse_mode='Markdown')
 
-# ========== PROCESADORES ==========
 async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
     chat_title = update.effective_chat.title or "Ex-amigos"
@@ -370,7 +365,6 @@ async def handle_url(update: Update, context: ContextTypes.DEFAULT_TYPE):
             quote=True
         )
 
-# ========== MAIN ==========
 def main():
     init_db()
     app = Application.builder().token(TOKEN).build()
@@ -391,4 +385,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-```
